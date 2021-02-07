@@ -1,0 +1,25 @@
+{
+  "name": "tunniplaanapi",
+  "version": "1.0.0",
+  "description": "Tunniplaani API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarmoretlu/tunniplaanapi.git"
+  },
+  "author": "Tarmo Reinväli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarmoretlu/tunniplaanapi/issues"
+  },
+  "homepage": "https://github.com/tarmoretlu/tunniplaanapi#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
