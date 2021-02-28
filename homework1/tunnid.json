@@ -1,0 +1,54 @@
+[
+    {
+        "id":1,
+        "kursus":"RIF2",
+        "kuupaev":"06.02.2021",
+        "alguskell":"14:15",
+        "loppkell":"17:30",
+        "ainekood":"HKI5003.HK",
+        "ainenimetus":"Programmeerimine II",
+        "maht":"4",
+        "oppejoud":"Martti Raavel",
+        "ruum":"",
+        "kommentaar":"GoogleMeet"
+    },
+    {
+        "id":2,
+        "kursus":"RIF2",
+        "kuupaev":"06.02.2021",
+        "alguskell":"10:00",
+        "loppkell":"13:15",
+        "ainekood":"HKI5061.HK",
+        "ainenimetus":"Mobiilirakenduste arendamine",
+        "maht":"4",
+        "oppejoud":"Priidu Paomets",
+        "ruum":"",
+        "kommentaar":"ZOOM"
+    },
+    {
+        "id":3,
+        "kursus":"RIF2",
+        "kuupaev":"18.02.2021",
+        "alguskell":"14:15",
+        "loppkell":"17:30",
+        "ainekood":"HKI5034.HK",
+        "ainenimetus":"Reklaamidisain",
+        "maht":"4",
+        "oppejoud":"Laura Hein",
+        "ruum":"",
+        "kommentaar":"ZOOM"
+    },
+    {
+        "id":4,
+        "kursus":"RIF2",
+        "kuupaev":"18.03.2021",
+        "alguskell":"10:00",
+        "loppkell":"13:15",
+        "ainekood":"HKI5030.HK",
+        "ainenimetus":"IT ja õigus",
+        "maht":"4",
+        "oppejoud":"Eero Johannes",
+        "ruum":"",
+        "kommentaar":""
+        }
+]

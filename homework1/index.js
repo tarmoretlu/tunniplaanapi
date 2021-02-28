@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 
+const fs = require("fs"); 
+
 const port = 3000;
 
 const tunniplaan = [
@@ -24,17 +26,26 @@ const tunniplaan = [
 app.use(express.json());
 
 app.get('/tunniplaan', (req, res) => {
-  res.status(200).json({
-    tunniplaan: tunniplaan
-  });
+  fs.readFile("tunnid.json", function(err, data) { 
+    if (err) throw err; 
+    const tunnid = JSON.parse(data); 
+    console.log(tunnid);
+    res.status(200).json(tunnid); 
+  }); 
 });
 
 app.get('/tunniplaan/:id', (req, res) => {
-    //const key = req.query.key;
-  const id = req.params.id;
-  const tund = tunniplaan[id-1];
-  res.status(200).json({
-    tunniplaan: tund
+  fs.readFile("tunnid.json", function(err, data) { 
+    if (err) throw err; 
+    const tunnid = JSON.parse(data); 
+    const id = req.params.id;
+    const findTundById = (id) => {
+    const key = tunnid.find(id => tunnid.id === id);
+    return tunnid[id-1];
+    }
+    res.status(200).json({
+    tunnid: tunnid[id-1]
+    });
   });
 });
 
@@ -85,7 +96,6 @@ app.post('/tunniplaan', (req, res) => {
   
   app.patch('/tunniplaan/:id', (req, res) => {
     const id = req.params.id;
-    //const description = req.body.description;
     const kursus = req.body.kursus;
     const kuupaev = req.body.kuupaev;
     const alguskell = req.body.alguskell;
