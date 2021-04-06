@@ -1,4 +1,5 @@
 const db = require('../../db');
+const teachersService = require('./teachersService');
 const subjectsService = {};
 
 // Returns list of subjects
@@ -39,8 +40,25 @@ subjectsService.createSubject = async (newSubject) => {
   
       return check[0].id;
 
-    } else {  
-      const result = await db.query('INSERT INTO subjects SET ?', [newSubject]);
+    } 
+    else if (!newSubject.subjectName || !newSubject.subjectVolume || !newSubject.teacherName) {
+      return 0;
+    }
+    
+    else {  
+
+      const subjectToCreate = {};
+      subjectToCreate.subjectCode = newSubject.subjectCode;
+      subjectToCreate.subjectName = newSubject.subjectName;
+      subjectToCreate.subjectVolume = newSubject.subjectVolume;
+      const teacher = {
+        teacherName: newSubject.teacherName
+      };
+      subjectToCreate.teachers_id = await teachersService.createTeacher(teacher);
+
+
+
+      const result = await db.query('INSERT INTO subjects SET ?', [subjectToCreate]);
       return result.insertId;
     }
   
@@ -63,8 +81,12 @@ subjectsService.updateSubject = async (subject) => {
   if (subject.subjectVolume) {
     subjectToUpdate.subjectVolume = subject.subjectVolume;
   }
-  if (subject.teachers_id) {
-    subjectToUpdate.teachers_id = subject.teachers_id;
+  const teacher = {
+    teacherName: subject.teacherName
+  };
+
+  if (subject.teacherName) {
+    subjectToUpdate.teachers_id = await teachersService.createTeacher(teacher);
   }
   await db.query('UPDATE subjects SET ? WHERE id = ?', [subjectToUpdate, subject.id]);
   return true;

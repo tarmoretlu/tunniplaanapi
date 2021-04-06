@@ -23,9 +23,9 @@ subjectsController.getSubjectById = async (req, res) => {
 };
 
 subjectsController.createSubject = async (req, res) => {
-  const { subjectCode, subjectName, subjectVolume, teachers_id } = req.body;
+  const { subjectCode, subjectName, subjectVolume, teacherName } = req.body;
  
-  if (!subjectCode || !subjectName || !subjectVolume || !teachers_id) {
+  if (!subjectCode || !subjectName || !subjectVolume || !teacherName) {
     return res.status(400).json({
       error: 'One or more parameters are missing',
     });
@@ -34,7 +34,7 @@ subjectsController.createSubject = async (req, res) => {
     subjectCode,
     subjectName,
     subjectVolume,
-    teachers_id
+    teacherName,
   };
   const id = await subjectsService.createSubject(subject);
   if (!id) {
@@ -68,8 +68,8 @@ subjectsController.deleteSubject = async (req, res) => {
 
 subjectsController.updateSubject = async (req, res) => {
   const id = parseInt(req.params.id, 10);
-  const { subjectCode, subjectName, subjectVolume, teachers_id } = req.body;
-  if (id && (subjectCode || subjectName || subjectVolume || teachers_id)) {
+  const { subjectCode, subjectName, subjectVolume, teacherName } = req.body;
+  if (id && (subjectCode || subjectName || subjectVolume || teacherName)) {
     const subject = await subjectsService.getSubjectById(id);
     if (subject) {
       const subjectToUpdate = {
@@ -77,7 +77,7 @@ subjectsController.updateSubject = async (req, res) => {
         subjectCode,
         subjectName,
         subjectVolume,
-        teachers_id,
+        teacherName,
       };
       const success = await subjectsService.updateSubject(subjectToUpdate);
       if (success) {

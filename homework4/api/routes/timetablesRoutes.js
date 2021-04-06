@@ -22,7 +22,8 @@ router
 .get('/', timetablesController.getTimetables)
 .get('/:id', timetablesController.getTimetableById)
 .use(isLoggedIn)
-.post('/', isLoggedIn, isAdmin, timetablesController.createTimetable)
-.delete('/:id', isLoggedIn, isAdmin,timetablesController.deleteTimetable);
+.post('/', isAdmin, timetablesController.createTimetable)
+.patch('/:id', isAdmin, timetablesController.updateTimetable)
+.delete('/:id', isAdmin,timetablesController.deleteTimetable);
 
 module.exports = router;

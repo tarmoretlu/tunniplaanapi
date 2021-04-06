@@ -40,9 +40,20 @@ timetablesController.createTimetable = async (req, res) => {
     };
     
     const id = await timetablesService.createTimetable(timetable);
-    res.status(201).json({
-      id,
-    });
+
+
+      if (id===0) {
+        res.status(400).json({
+          error: `Record not added, as there is no such subject code!`,
+        });
+      } else {
+        res.status(201).json({
+          id,
+        });
+      }
+   
+
+
   } else {
     res.status(400).json({
      
@@ -51,30 +62,46 @@ timetablesController.createTimetable = async (req, res) => {
   }
   
 };
-/*
-timetablesController.createTimetable = async (req, res) => {
-  const { courseId, date, timeslotId, subjectId, teacherId, roomId, commentId } = req.body;
-  if (courseId && date && timeslotId && subjectId && teacherId && roomId && commentId) {
-    const timetable = {
-      courseId, 
-      date, 
-      timeslotId, 
-      subjectId, 
-      teacherId, 
-      roomId, 
-      commentId,
-    };
-    const id = await timetablesService.createTimetable(timetable);
-    res.status(201).json({
-      id,
-    });
+
+timetablesController.updateTimetable = async (req, res) => {
+  const id = parseInt(req.params.id, 10);
+  const { date, startTime, endTime, roomNumber, commentContent, courseName, subjectCode } = req.body;
+  if (id && (date || startTime || endTime || roomNumber || commentContent || courseName || subjectCode)) {
+    const timetable = await timetablesService.getTimetableById(id);
+    if (timetable) {
+      const timetableToUpdate = {
+        id,
+        date,
+        startTime,
+        endTime,
+        roomNumber,
+        commentContent,
+        courseName,
+        subjectCode,
+      };
+      const success = await timetablesService.updateTimetable(timetableToUpdate);
+      if (success) {
+        res.status(200).json({
+          success: true,
+        });
+      } else {
+        res.status(500).json({
+          error: 'The subject code is not available, create it first!',
+        });
+      }
+    } else {
+      res.status(400).json({
+        error: `No timetable found with id: ${id}`,
+      });
+    }
   } else {
     res.status(400).json({
-      error: 'Timetable parameters are missing',
+      error: 'Timetable parameters missing',
     });
   }
 };
-*/
+
+
 timetablesController.deleteTimetable = async (req, res) => {
   const id = parseInt(req.params.id, 10);
   // Check if timetable exists
